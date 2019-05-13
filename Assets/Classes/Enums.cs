@@ -35,7 +35,7 @@ namespace MySpace
         // Positive values are allowed in the Overworld
         // 0 is allowed in both.
         public enum ManTypes
-        { None, StandardMan, Monster, MC, Max }
+        { Max, Monster, None = 0, StandardMan, MC, }
 
         public enum ManStates
         { None, Idle, Running, RotatingToPlayer, Rotating, Waiting };
