@@ -31,6 +31,9 @@ namespace MySpace
         { None, Common, Elevator, OverLobby, UnderLobby };
 
         // Avatar/man related enums
+        // Negative values are allowed in the Underworld
+        // Positive values are allowed in the Overworld
+        // 0 is allowed in both.
         public enum ManTypes
         { None, StandardMan, Monster, MC, Max }
 

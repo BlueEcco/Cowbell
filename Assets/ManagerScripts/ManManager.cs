@@ -118,6 +118,21 @@ public class ManManager : MonoBehaviour
         ManScript ManScript = _ManList[manId].ManScript;
         RoomScript NewRoomScript = RoomManager.Ref.GetRoomData(newRoomId).RoomScript;
 
+        //NPC is Overworld only trying to travel to Underworld
+        if (ManScript.ManData.ManType > 0 && NewRoomScript.RoomData.RoomOverUnder < 0)
+        {
+            GuiManager.Ref.Initiate_UserInfoSmall("Sorry, can't assign to this room!");
+            return;
+        }
+
+        //NPC is Underworld only trying to travel to Overworld
+        if (ManScript.ManData.ManType < 0 && NewRoomScript.RoomData.RoomOverUnder > 0)
+        {
+            GuiManager.Ref.Initiate_UserInfoSmall("Sorry, can't assign to this room!");
+            return;
+        }
+
+
         if (NewRoomScript.RoomContainsMan(manId))
         {
             GuiManager.Ref.Initiate_UserInfoSmall("Already assigned to this room!");
