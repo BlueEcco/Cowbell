@@ -14,6 +14,9 @@ public class ManManager : MonoBehaviour
 
     private Dictionary<Guid, ManRef> _ManList = new Dictionary<Guid, ManRef>();
 
+    public List<ManInstanceData> hireList = new List<ManInstanceData>();
+    public List<ManInstanceData> bookingList = new List<ManInstanceData>();
+
     void Awake()
     {
         if (Ref == null) Ref = GetComponent<ManManager>();

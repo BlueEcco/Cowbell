@@ -20,6 +20,7 @@ public class GuiManager : MonoBehaviour
     public GameObject ManInfoWindow = null;
     public GameObject BuildRoomDlg = null;
     public GameObject MainMenuDlg = null;
+    public GameObject HireDlg = null;
 
     private Enums.CursorStates _CursorState = Enums.CursorStates.None;
     private Enums.CursorStates _PrevCursorState = Enums.CursorStates.None;
@@ -47,6 +48,7 @@ public class GuiManager : MonoBehaviour
         Debug.Assert(ManInfoWindow != null);
         Debug.Assert(BuildRoomDlg != null);
         Debug.Assert(MainMenuDlg != null);
+        Debug.Assert(HireDlg != null);
 
         SetCursorState(Enums.CursorStates.Normal);
         UpdateManCount(ManManager.Ref.GetManCount());
@@ -153,6 +155,11 @@ public class GuiManager : MonoBehaviour
         BuildRoomDlg.GetComponent<BuildDlgScript>().SetActive(showIt);
     }
 
+    public void ShowHireDlg(bool showIt)
+    {
+        HireDlg.GetComponent<HireDlgScript>().SetActive(showIt);
+    }
+
     public void ShowMainMenuDlg(bool showIt)
     {
         MainMenuDlg.SetActive(showIt);
@@ -167,4 +174,9 @@ public class GuiManager : MonoBehaviour
     {
         return (MainMenuDlg.activeInHierarchy);
     }
+    public bool IsHireDlgActive()
+    {
+        return (HireDlg.activeInHierarchy);
+    }
 }
+

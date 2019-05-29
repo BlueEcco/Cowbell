@@ -259,12 +259,20 @@ public class ClickManager : MonoBehaviour
 
     public void AddNewMan()
     {
-        if (StateManager.Ref.IsManWaiting()) return;
+        //if (StateManager.Ref.IsManWaiting()) return;
 
         Guid ManId = Guid.NewGuid();
-        ManManager.Ref.CreateMan(ManId, Enums.ManTypes.StandardMan);
-        StateManager.Ref.SetWaitingMan(ManId);
-        GuiManager.Ref.Initiate_UserInfoSmall("New man incoming!");
+        ManInstanceData ManData = new ManInstanceData();
+        ManData.ManId = ManId;
+        ManData.ManType = Enums.ManTypes.StandardMan;
+        ManData.ManFirstName = NameFactory.GetNewFirstName();
+        ManData.ManLastName = NameFactory.GetNewLastName();
+
+        ManManager.Ref.hireList.Add(ManData);
+
+        //ManManager.Ref.CreateMan(ManId, Enums.ManTypes.StandardMan);
+        //StateManager.Ref.SetWaitingMan(ManId);
+        //GuiManager.Ref.Initiate_UserInfoSmall("New man incoming!");
     }
 
     public void SaveStateToFile()
@@ -289,6 +297,21 @@ public class ClickManager : MonoBehaviour
         if (!StateManager.Ref.IsRoomBuildDialogAllowed()) return;
 
         GuiManager.Ref.ShowBuildRoomDlg(true);
+        StateManager.Ref.SetGameState(Enums.GameStates.GuiBlocking);
+    }
+
+    public void HireButtonClicked()
+    {
+        if ((StateManager.Ref.GetGameState() == Enums.GameStates.GuiBlocking) &&
+           (GuiManager.Ref.IsHireDlgActive()))
+        {
+            StateManager.Ref.SetGameState(Enums.GameStates.Normal);
+            return;
+        }
+
+        if (!StateManager.Ref.IsHireDialogAllowed()) return;
+
+        GuiManager.Ref.ShowHireDlg(true);
         StateManager.Ref.SetGameState(Enums.GameStates.GuiBlocking);
     }
 
@@ -367,4 +390,56 @@ public class ClickManager : MonoBehaviour
     {
         InitiateBuilding(Enums.RoomSizes.Size6, Enums.RoomTypes.Common, Enums.RoomOverUnder.Under);
     }
+
+    /// <summary>
+    //HIRE WINDOW BUTTONS
+    /// </summary>
+    public void HireDlg0_Click()
+    {
+        if (StateManager.Ref.IsManWaiting()) return;
+        ManInstanceData newHire = ManManager.Ref.hireList[0];
+
+        ManManager.Ref.CreateMan(newHire);
+        ManManager.Ref.hireList.RemoveAt(0);
+
+        StateManager.Ref.SetWaitingMan(newHire.ManId);
+        GuiManager.Ref.Initiate_UserInfoSmall("New Employee incoming!");
+    }
+
+    public void HireDlg1_Click()
+    {
+        if (StateManager.Ref.IsManWaiting()) return;
+        ManInstanceData newHire = ManManager.Ref.hireList[1];
+
+        ManManager.Ref.CreateMan(newHire);
+        ManManager.Ref.hireList.RemoveAt(1);
+
+        StateManager.Ref.SetWaitingMan(newHire.ManId);
+        GuiManager.Ref.Initiate_UserInfoSmall("New Employee incoming!");
+    }
+
+    public void HireDlg2_Click()
+    {
+        if (StateManager.Ref.IsManWaiting()) return;
+        ManInstanceData newHire = ManManager.Ref.hireList[2];
+
+        ManManager.Ref.CreateMan(newHire);
+        ManManager.Ref.hireList.RemoveAt(2);
+
+        StateManager.Ref.SetWaitingMan(newHire.ManId);
+        GuiManager.Ref.Initiate_UserInfoSmall("New Employee incoming!");
+    }
+
+    public void HireDlg3_Click()
+    {
+        if (StateManager.Ref.IsManWaiting()) return;
+        ManInstanceData newHire = ManManager.Ref.hireList[3];
+
+        ManManager.Ref.CreateMan(newHire);
+        ManManager.Ref.hireList.RemoveAt(3);
+
+        StateManager.Ref.SetWaitingMan(newHire.ManId);
+        GuiManager.Ref.Initiate_UserInfoSmall("New Employee incoming!");
+    }
+
 }

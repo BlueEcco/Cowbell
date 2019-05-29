@@ -137,6 +137,7 @@ public class StateManager : MonoBehaviour
                 RoomManager.Ref.HighlightNoRoom();
                 GuiManager.Ref.ShowBuildRoomDlg(false);
                 GuiManager.Ref.ShowMainMenuDlg(false);
+                GuiManager.Ref.ShowHireDlg(false);
                 break;
             case Enums.GameStates.GuiBlocking:
                 GuiManager.Ref.SetGuiBlockingCursor();
@@ -220,6 +221,19 @@ public class StateManager : MonoBehaviour
     }
 
     public bool IsMainMenuDialogAllowed()
+    {
+        if (CameraScript.Ref.IsCameraDragging()) return (false);
+
+        switch (_GameState)
+        {
+            case Enums.GameStates.Normal:
+            case Enums.GameStates.ManSelected:
+            case Enums.GameStates.RoomSelected: return (true);
+            default: return (false);
+        }
+    }
+
+    public bool IsHireDialogAllowed()
     {
         if (CameraScript.Ref.IsCameraDragging()) return (false);
 
